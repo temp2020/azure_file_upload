@@ -34,7 +34,7 @@ router.post('/', uploadStrategy, (req, res) => {
         , streamLength = req.file.buffer.length
         ;
 
-    blobService.createBlockBlobFromStream(containerName, blobName, stream, streamLength, (err, result) => {
+   /*  blobService.createBlockBlobFromStream(containerName, blobName, stream, streamLength, (err, result) => {
 
         if (err) {
             handleError(err);
@@ -48,7 +48,17 @@ router.post('/', uploadStrategy, (req, res) => {
                 message: `File uploaded to ${path}.`
             });
         }
-    });
+    }); */
+    blobService.createBlockBlobFromLocalFile('partlibrary', 'stlfile.stl', 'Slider.stl', function(error, result, response) {
+        if (error) {
+          // file uploaded
+          console.log(error);
+          res.send(error);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+      });
 });
 
 module.exports = router;
